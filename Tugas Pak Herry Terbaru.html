@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Geometri Menyenangkan</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', sans-serif;
+      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      color: #333;
+    }
+
+    .game-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    h1 {
+      color: #3a86ff;
+    }
+
+    #question {
+      font-size: 20px;
+      margin: 20px 0;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 100px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #3a86ff;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #feedback {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    #score {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1>🎲 Game Geometri Menyenangkan</h1>
+    <div id="question">Memuat soal...</div>
+    <input type="number" id="answer" placeholder="Jawaban">
+    <br>
+    <button onclick="checkAnswer()">Jawab</button>
+    <div id="feedback"></div>
+    <div id="score">Skor: 0</div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        text: (a, b) => `Berapakah luas persegi panjang dengan panjang ${a} cm dan lebar ${b} cm?`,
+        answer: (a, b) => a * b,
+        generate: () => {
+          let a = Math.floor(Math.random() * 10 + 1);
+          let b = Math.floor(Math.random() * 10 + 1);
+          return { question: questions[0].text(a, b), correctAnswer: questions[0].answer(a, b) };
+        }
+      },
+      {
+        text: (s) => `Berapakah keliling persegi dengan sisi ${s} cm?`,
+        answer: (s) => 4 * s,
+        generate: () => {
+          let s = Math.floor(Math.random() * 10 + 1);
+          return { question: questions[1].text(s), correctAnswer: questions[1].answer(s) };
+        }
+      },
+      {
+        text: (r) => `Berapakah luas lingkaran dengan jari-jari ${r} cm? (Gunakan π = 3.14)`,
+        answer: (r) => parseFloat((3.14 * r * r).toFixed(2)),
+        generate: () => {
+          let r = Math.floor(Math.random() * 10 + 1);
+          return { question: questions[2].text(r), correctAnswer: questions[2].answer(r) };
+        }
+      }
+    ];
+
+    let currentAnswer = 0;
+    let score = 0;
+
+    function newQuestion() {
+      const q = questions[Math.floor(Math.random() * questions.length)].generate();
+      document.getElementById("question").innerText = q.question;
+      currentAnswer = q.correctAnswer;
+      document.getElementById("feedback").innerText = '';
+      document.getElementById("answer").value = '';
+    }
+
+    function checkAnswer() {
+      const userAnswer = parseFloat(document.getElementById("answer").value);
+      const feedback = document.getElementById("feedback");
+
+      if (Math.abs(userAnswer - currentAnswer) < 0.01) {
+        feedback.innerText = "✅ Benar!";
+        feedback.style.color = "green";
+        score++;
+      } else {
+        feedback.innerText = `❌ Salah! Jawaban yang benar: ${currentAnswer}`;
+        feedback.style.color = "red";
+        score = Math.max(0, score - 1);
+      }
+
+      document.getElementById("score").innerText = `Skor: ${score}`;
+      setTimeout(newQuestion, 2000);
+    }
+
+    // Load first question
+    newQuestion();
+  </script>
+</body>
+</html>
