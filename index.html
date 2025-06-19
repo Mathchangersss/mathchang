@@ -3,51 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberGeometry - Game Matematika Geometri</title>
+    <title>CyberGeometry - Game Matematika Cyberpunk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
         
         :root {
-            --neon-pink: #ff2a6d;
-            --neon-blue: #05d9e8;
-            --neon-purple: #d300c5;
-            --cyber-black: #0d0221;
-            --cyber-dark: #1a1a2e;
-            --cyber-light: #e7dfdd;
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-purple: #9d00ff;
+            --dark-bg: #0a0a1a;
+            --cyber-grid: #1a1a3a;
         }
         
         body {
             font-family: 'Rajdhani', sans-serif;
-            background-color: var(--cyber-dark);
-            color: var(--cyber-light);
-            min-height: 100vh;
+            background-color: var(--dark-bg);
             background-image: 
-                radial-gradient(circle at 20% 35%, rgba(5, 217, 232, 0.15) 0%, transparent 25%),
-                radial-gradient(circle at 75% 65%, rgba(211, 0, 197, 0.15) 0%, transparent 25%);
+                linear-gradient(0deg, transparent 24%, rgba(0, 243, 255, 0.05) 25%, rgba(0, 243, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 243, 255, 0.05) 75%, rgba(0, 243, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 243, 255, 0.05) 25%, rgba(0, 243, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 243, 255, 0.05) 75%, rgba(0, 243, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            color: white;
+            min-height: 100vh;
             overflow-x: hidden;
         }
         
-        h1, h2, h3, h4, .cyber-font {
+        h1, h2, h3, h4, h5, h6, .cyber-text {
             font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
         }
         
-        .neon-border {
-            position: relative;
+        .cyber-panel {
+            background-color: rgba(10, 10, 26, 0.8);
             border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 5px var(--neon-blue), inset 0 0 5px var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue), inset 0 0 5px var(--neon-blue);
+            position: relative;
+            overflow: hidden;
         }
         
-        .neon-border::before {
+        .cyber-panel::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            box-shadow: 0 0 10px var(--neon-blue);
-            opacity: 0.5;
-            z-index: -1;
+            left: -100%;
+            width: 50%;
+            height: 2px;
+            background-color: var(--neon-blue);
+            animation: cyber-scan 3s linear infinite;
+        }
+        
+        @keyframes cyber-scan {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 200%;
+            }
         }
         
         .neon-text {
@@ -69,1460 +80,946 @@
             text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple);
         }
         
-        .cyber-button {
+        .cyber-btn {
             position: relative;
-            background: var(--cyber-dark);
+            background: linear-gradient(45deg, rgba(0, 243, 255, 0.2), rgba(157, 0, 255, 0.2));
             border: 1px solid var(--neon-blue);
-            color: var(--neon-blue);
+            color: white;
             font-family: 'Orbitron', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 2px;
             overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 5px var(--neon-blue), inset 0 0 5px var(--neon-blue);
+            transition: all 0.3s;
         }
         
-        .cyber-button:hover {
-            background: var(--neon-blue);
-            color: var(--cyber-dark);
-            box-shadow: 0 0 10px var(--neon-blue), inset 0 0 10px var(--cyber-dark);
+        .cyber-btn:hover {
+            background: linear-gradient(45deg, rgba(0, 243, 255, 0.4), rgba(157, 0, 255, 0.4));
+            box-shadow: 0 0 10px var(--neon-blue);
         }
         
-        .cyber-button::before {
+        .cyber-btn::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(5, 217, 232, 0.4), transparent);
-            transition: all 0.6s ease;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s;
         }
         
-        .cyber-button:hover::before {
+        .cyber-btn:hover::before {
             left: 100%;
-        }
-        
-        .cyber-panel {
-            background: rgba(26, 26, 46, 0.8);
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 10px var(--neon-blue);
-            backdrop-filter: blur(5px);
-        }
-        
-        .cyber-input {
-            background: rgba(13, 2, 33, 0.7);
-            border: 1px solid var(--neon-blue);
-            color: var(--cyber-light);
-            font-family: 'Rajdhani', sans-serif;
-            transition: all 0.3s ease;
-        }
-        
-        .cyber-input:focus {
-            outline: none;
-            box-shadow: 0 0 10px var(--neon-blue);
         }
         
         .shape-container {
             position: relative;
             width: 100%;
-            height: 220px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 200px;
         }
         
         .shape {
-            position: relative;
-            width: 180px;
-            height: 180px;
-        }
-        
-        .progress-bar {
-            height: 10px;
-            background: rgba(5, 217, 232, 0.2);
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-            border-radius: 5px;
-            transition: width 0.3s ease;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         
         .option {
-            transition: all 0.3s ease;
             cursor: pointer;
+            transition: all 0.3s;
         }
         
         .option:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(5, 217, 232, 0.5);
+            box-shadow: 0 0 15px var(--neon-blue);
         }
         
-        .glitch-effect {
+        .progress-bar {
+            height: 10px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            transition: width 0.5s;
+        }
+        
+        .glitch {
+            animation: glitch 1s linear infinite;
             position: relative;
         }
         
-        .glitch-effect::before,
-        .glitch-effect::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.8;
-        }
-        
-        .glitch-effect::before {
-            color: var(--neon-pink);
-            z-index: -1;
-            animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
-            animation-delay: 0.1s;
-        }
-        
-        .glitch-effect::after {
-            color: var(--neon-blue);
-            z-index: -2;
-            animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
-            animation-delay: 0.2s;
-        }
-        
         @keyframes glitch {
-            0% {
-                transform: translate(0);
+            2%, 64% {
+                transform: translate(2px, 0) skew(0deg);
             }
-            20% {
-                transform: translate(-2px, 2px);
+            4%, 60% {
+                transform: translate(-2px, 0) skew(0deg);
             }
-            40% {
-                transform: translate(-2px, -2px);
+            62% {
+                transform: translate(0, 0) skew(5deg);
             }
-            60% {
-                transform: translate(2px, 2px);
-            }
-            80% {
+        }
+        
+        .glitch:before,
+        .glitch:after {
+            content: attr(title);
+            position: absolute;
+            left: 0;
+        }
+        
+        .glitch:before {
+            animation: glitchTop 1s linear infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+            -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+        }
+        
+        @keyframes glitchTop {
+            2%, 64% {
                 transform: translate(2px, -2px);
             }
-            100% {
-                transform: translate(0);
+            4%, 60% {
+                transform: translate(-2px, 2px);
+            }
+            62% {
+                transform: translate(13px, -1px) skew(-13deg);
             }
         }
         
-        .grid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(var(--cyber-dark) 1px, transparent 1px),
-                              linear-gradient(90deg, var(--cyber-dark) 1px, transparent 1px);
-            background-size: 20px 20px;
-            background-color: rgba(26, 26, 46, 0.1);
-            z-index: -1;
-            opacity: 0.2;
+        .glitch:after {
+            animation: glitchBottom 1.5s linear infinite;
+            clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+            -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
         }
         
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-        
-        @keyframes floating {
-            0% {
-                transform: translateY(0px) rotate(0deg);
+        @keyframes glitchBottom {
+            2%, 64% {
+                transform: translate(-2px, 0);
             }
-            50% {
-                transform: translateY(-10px) rotate(2deg);
+            4%, 60% {
+                transform: translate(-2px, 0);
             }
-            100% {
-                transform: translateY(0px) rotate(0deg);
+            62% {
+                transform: translate(-22px, 5px) skew(21deg);
             }
         }
         
-        .shape-glow {
-            filter: drop-shadow(0 0 5px var(--neon-blue));
+        .modal {
+            background-color: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(5px);
         }
         
-        .shape-grid {
-            background-image: radial-gradient(circle, rgba(5, 217, 232, 0.1) 1px, transparent 1px);
-            background-size: 10px 10px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.5;
+        .score-pulse {
+            animation: scorePulse 0.5s;
+        }
+        
+        @keyframes scorePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
-<body>
-    <div class="grid-bg"></div>
-    
-    <div class="container mx-auto px-4 py-8">
-        <header class="text-center mb-8">
-            <h1 class="text-4xl md:text-6xl font-bold mb-2 cyber-font neon-blue glitch-effect" data-text="CYBERGEOMETRY">CYBERGEOMETRY</h1>
-            <p class="text-xl md:text-2xl neon-text">Tantangan Matematika di Dunia Digital</p>
+<body class="p-4">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="cyber-panel rounded-lg p-4 mb-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-center glitch neon-blue" title="CyberGeometry">CyberGeometry</h1>
+            <p class="text-center text-gray-300 mt-2">Tantangan Geometri di Dunia Cyberpunk</p>
         </header>
         
-        <div id="game-container" class="max-w-4xl mx-auto">
-            <!-- Start Screen -->
-            <div id="start-screen" class="cyber-panel rounded-lg p-6 md:p-10 text-center">
-                <h2 class="text-3xl font-bold mb-6 neon-purple">MASUKI SIMULASI</h2>
-                <p class="mb-8 text-lg">Uji pengetahuan geometri Anda dalam dunia cyberpunk. Selesaikan tantangan untuk membuka kode rahasia.</p>
-                
-                <div class="mb-8">
-                    <h3 class="text-xl font-bold mb-4 neon-text">Pilih Level Kesulitan</h3>
-                    <div class="flex flex-wrap justify-center gap-4">
-                        <button class="difficulty-btn cyber-button py-2 px-6 rounded-md" data-difficulty="mudah">MUDAH</button>
-                        <button class="difficulty-btn cyber-button py-2 px-6 rounded-md" data-difficulty="sedang">SEDANG</button>
-                        <button class="difficulty-btn cyber-button py-2 px-6 rounded-md" data-difficulty="sulit">SULIT</button>
-                    </div>
+        <!-- Game Container -->
+        <div class="cyber-panel rounded-lg p-6 mb-6">
+            <!-- Game Stats -->
+            <div class="flex flex-wrap justify-between items-center mb-6">
+                <div>
+                    <p class="text-sm text-gray-400">LEVEL</p>
+                    <p id="level" class="text-2xl neon-blue">1</p>
                 </div>
-                
-                <button id="start-btn" class="cyber-button py-3 px-8 rounded-md text-lg">MULAI SIMULASI</button>
-            </div>
-            
-            <!-- Game Screen -->
-            <div id="game-screen" class="hidden">
-                <div class="flex justify-between items-center mb-6">
-                    <div class="cyber-panel rounded-lg p-3">
-                        <p class="text-lg"><span class="neon-text">Level:</span> <span id="difficulty-display" class="neon-pink">Sedang</span></p>
-                    </div>
-                    <div class="cyber-panel rounded-lg p-3">
-                        <p class="text-lg"><span class="neon-text">Skor:</span> <span id="score-display" class="neon-blue">0</span></p>
-                    </div>
-                    <div class="cyber-panel rounded-lg p-3">
-                        <p class="text-lg"><span class="neon-text">Soal:</span> <span id="question-counter" class="neon-purple">1/10</span></p>
-                    </div>
+                <div>
+                    <p class="text-sm text-gray-400">SKOR</p>
+                    <p id="score" class="text-2xl neon-pink">0</p>
                 </div>
-                
-                <div class="cyber-panel rounded-lg p-6 mb-6">
-                    <div class="mb-4">
-                        <div class="progress-bar">
-                            <div id="timer-bar" class="progress-fill" style="width: 100%"></div>
-                        </div>
-                    </div>
-                    
-                    <h3 id="question-text" class="text-xl md:text-2xl font-bold mb-6 text-center neon-text">Pertanyaan akan muncul di sini</h3>
-                    
-                    <div id="shape-display" class="shape-container mb-6">
-                        <!-- Shape will be rendered here -->
-                    </div>
-                    
-                    <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Options will be generated here -->
-                    </div>
-                </div>
-                
-                <div class="text-center">
-                    <button id="next-btn" class="cyber-button py-2 px-6 rounded-md hidden">LANJUT</button>
-                    <button id="quit-btn" class="cyber-button py-2 px-6 rounded-md">KELUAR</button>
+                <div>
+                    <p class="text-sm text-gray-400">WAKTU</p>
+                    <p id="timer" class="text-2xl neon-purple">30</p>
                 </div>
             </div>
             
-            <!-- Result Screen -->
-            <div id="result-screen" class="hidden cyber-panel rounded-lg p-6 md:p-10 text-center">
-                <h2 class="text-3xl font-bold mb-2 neon-purple">SIMULASI SELESAI</h2>
-                <p class="text-xl mb-6">Kinerja Anda telah dianalisis</p>
-                
-                <div class="mb-8">
-                    <p class="text-2xl mb-2">Skor Akhir: <span id="final-score" class="neon-blue">0</span></p>
-                    <p class="text-xl mb-4">Jawaban Benar: <span id="correct-answers" class="neon-pink">0</span>/<span id="total-questions">10</span></p>
-                    
-                    <div class="cyber-panel rounded-lg p-4 mb-4">
-                        <h3 class="text-xl font-bold mb-2 neon-text">Analisis Performa</h3>
-                        <div class="h-4 bg-gray-800 rounded-full mb-2">
-                            <div id="performance-bar" class="h-full rounded-full" style="width: 0%; background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple))"></div>
-                        </div>
-                        <p id="performance-text" class="text-lg">Menganalisis data...</p>
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-800 rounded-full h-2.5 mb-6">
+                <div id="progress-bar" class="progress-bar rounded-full" style="width: 100%"></div>
+            </div>
+            
+            <!-- Question Area -->
+            <div id="question-container" class="mb-6">
+                <h2 class="text-xl md:text-2xl font-semibold mb-4 neon-text">Identifikasi Bentuk Geometri</h2>
+                <div class="shape-container bg-gray-900 rounded-lg mb-4" id="shape-display">
+                    <!-- Shape will be rendered here -->
+                </div>
+                <p id="question-text" class="text-lg mb-4">Apa nama bentuk geometri di atas?</p>
+            </div>
+            
+            <!-- Options Area -->
+            <div id="options-container" class="grid grid-cols-2 gap-4">
+                <!-- Options will be generated here -->
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="flex justify-between">
+            <button id="start-btn" class="cyber-btn py-2 px-6 rounded-lg">Mulai Game</button>
+            <button id="help-btn" class="cyber-btn py-2 px-6 rounded-lg">Bantuan</button>
+        </div>
+    </div>
+    
+    <!-- Help Modal -->
+    <div id="help-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="modal-overlay absolute inset-0 bg-black opacity-75"></div>
+        <div class="modal relative cyber-panel rounded-lg p-6 max-w-lg w-full mx-4">
+            <h2 class="text-2xl font-bold mb-4 neon-blue">Cara Bermain</h2>
+            <ul class="list-disc pl-6 space-y-2 mb-6">
+                <li>Identifikasi bentuk geometri yang ditampilkan</li>
+                <li>Pilih jawaban yang benar dari opsi yang tersedia</li>
+                <li>Jawaban benar akan menambah skor Anda</li>
+                <li>Jawaban salah akan mengurangi waktu</li>
+                <li>Selesaikan level untuk membuka tantangan baru</li>
+                <li>Setiap level memiliki bentuk geometri yang lebih kompleks</li>
+            </ul>
+            <h3 class="text-xl font-bold mb-2 neon-pink">Bentuk Geometri</h3>
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="bg-gray-900 p-3 rounded-lg">
+                    <p class="font-semibold mb-1">Level 1</p>
+                    <p>Bentuk dasar 2D: persegi, segitiga, lingkaran, dll.</p>
+                </div>
+                <div class="bg-gray-900 p-3 rounded-lg">
+                    <p class="font-semibold mb-1">Level 2</p>
+                    <p>Bentuk 2D kompleks: trapesium, jajar genjang, dll.</p>
+                </div>
+                <div class="bg-gray-900 p-3 rounded-lg">
+                    <p class="font-semibold mb-1">Level 3</p>
+                    <p>Bentuk 3D dasar: kubus, bola, silinder, dll.</p>
+                </div>
+                <div class="bg-gray-900 p-3 rounded-lg">
+                    <p class="font-semibold mb-1">Level 4</p>
+                    <p>Bentuk 3D kompleks: prisma, limas, dll.</p>
+                </div>
+            </div>
+            <button id="close-help" class="cyber-btn py-2 px-6 rounded-lg w-full">Tutup</button>
+        </div>
+    </div>
+    
+    <!-- Game Over Modal -->
+    <div id="game-over-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="modal-overlay absolute inset-0 bg-black opacity-75"></div>
+        <div class="modal relative cyber-panel rounded-lg p-6 max-w-lg w-full mx-4">
+            <h2 class="text-2xl font-bold mb-2 neon-pink glitch" title="Game Over">Game Over</h2>
+            <p class="mb-4">Skor akhir Anda:</p>
+            <p id="final-score" class="text-4xl font-bold mb-6 neon-blue">0</p>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-2 neon-purple">Statistik</h3>
+                <div class="bg-gray-900 p-4 rounded-lg">
+                    <div class="flex justify-between mb-2">
+                        <span>Level tercapai:</span>
+                        <span id="final-level">1</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>Jawaban benar:</span>
+                        <span id="correct-answers">0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Jawaban salah:</span>
+                        <span id="wrong-answers">0</span>
                     </div>
                 </div>
-                
-                <div class="flex flex-wrap justify-center gap-4">
-                    <button id="play-again-btn" class="cyber-button py-2 px-6 rounded-md">MAIN LAGI</button>
-                    <button id="home-btn" class="cyber-button py-2 px-6 rounded-md">MENU UTAMA</button>
-                </div>
+            </div>
+            
+            <div class="flex space-x-4">
+                <button id="play-again" class="cyber-btn py-2 px-6 rounded-lg flex-1">Main Lagi</button>
+                <button id="share-score" class="cyber-btn py-2 px-6 rounded-lg flex-1">Bagikan Skor</button>
             </div>
         </div>
     </div>
     
+    <!-- Level Up Modal -->
+    <div id="level-up-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="modal-overlay absolute inset-0 bg-black opacity-75"></div>
+        <div class="modal relative cyber-panel rounded-lg p-6 max-w-lg w-full mx-4">
+            <h2 class="text-2xl font-bold mb-2 neon-blue">Level Naik!</h2>
+            <p class="mb-4">Selamat! Anda telah mencapai:</p>
+            <p id="new-level" class="text-4xl font-bold mb-6 neon-purple">Level 2</p>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-2 neon-pink">Tantangan Baru</h3>
+                <p id="level-description" class="bg-gray-900 p-4 rounded-lg">
+                    Bentuk geometri yang lebih kompleks akan muncul. Bersiaplah!
+                </p>
+            </div>
+            
+            <button id="continue-game" class="cyber-btn py-2 px-6 rounded-lg w-full">Lanjutkan</button>
+        </div>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function() {
             // Game elements
-            const startScreen = document.getElementById('start-screen');
-            const gameScreen = document.getElementById('game-screen');
-            const resultScreen = document.getElementById('result-screen');
             const startBtn = document.getElementById('start-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const quitBtn = document.getElementById('quit-btn');
-            const playAgainBtn = document.getElementById('play-again-btn');
-            const homeBtn = document.getElementById('home-btn');
-            const difficultyBtns = document.querySelectorAll('.difficulty-btn');
-            const difficultyDisplay = document.getElementById('difficulty-display');
-            const scoreDisplay = document.getElementById('score-display');
-            const questionCounter = document.getElementById('question-counter');
-            const questionText = document.getElementById('question-text');
+            const helpBtn = document.getElementById('help-btn');
+            const closeHelpBtn = document.getElementById('close-help');
+            const helpModal = document.getElementById('help-modal');
+            const gameOverModal = document.getElementById('game-over-modal');
+            const levelUpModal = document.getElementById('level-up-modal');
+            const playAgainBtn = document.getElementById('play-again');
+            const shareScoreBtn = document.getElementById('share-score');
+            const continueGameBtn = document.getElementById('continue-game');
+            
+            const levelElement = document.getElementById('level');
+            const scoreElement = document.getElementById('score');
+            const timerElement = document.getElementById('timer');
+            const progressBar = document.getElementById('progress-bar');
+            const questionContainer = document.getElementById('question-container');
             const shapeDisplay = document.getElementById('shape-display');
+            const questionText = document.getElementById('question-text');
             const optionsContainer = document.getElementById('options-container');
-            const timerBar = document.getElementById('timer-bar');
-            const finalScore = document.getElementById('final-score');
-            const correctAnswers = document.getElementById('correct-answers');
-            const totalQuestions = document.getElementById('total-questions');
-            const performanceBar = document.getElementById('performance-bar');
-            const performanceText = document.getElementById('performance-text');
+            
+            const finalScoreElement = document.getElementById('final-score');
+            const finalLevelElement = document.getElementById('final-level');
+            const correctAnswersElement = document.getElementById('correct-answers');
+            const wrongAnswersElement = document.getElementById('wrong-answers');
+            const newLevelElement = document.getElementById('new-level');
+            const levelDescriptionElement = document.getElementById('level-description');
             
             // Game state
-            let currentQuestion = 0;
+            let gameActive = false;
+            let currentLevel = 1;
             let score = 0;
-            let correctCount = 0;
-            let selectedDifficulty = 'sedang';
-            let questions = [];
+            let timeLeft = 30;
             let timer;
-            let timeLeft;
-            let maxTime;
+            let correctAnswers = 0;
+            let wrongAnswers = 0;
+            let questionsPerLevel = 5;
+            let questionsAnswered = 0;
             
-            // Questions database
-            const questionBank = {
-                mudah: [
-                    {
-                        question: "Berapa jumlah sudut dalam segitiga?",
-                        shape: "triangle",
-                        options: ["180°", "90°", "270°", "360°"],
-                        answer: "180°"
-                    },
-                    {
-                        question: "Berapa jumlah sudut dalam persegi?",
-                        shape: "square",
-                        options: ["180°", "270°", "360°", "540°"],
-                        answer: "360°"
-                    },
-                    {
-                        question: "Rumus luas lingkaran adalah...",
-                        shape: "circle",
-                        options: ["πr²", "2πr", "πd", "r²"],
-                        answer: "πr²"
-                    },
-                    {
-                        question: "Berapa jumlah sisi pada sebuah kubus?",
-                        shape: "cube",
-                        options: ["4", "6", "8", "12"],
-                        answer: "6"
-                    },
-                    {
-                        question: "Berapa jumlah sudut dalam sebuah pentagon (segi lima)?",
-                        shape: "pentagon",
-                        options: ["360°", "450°", "500°", "540°"],
-                        answer: "540°"
-                    },
-                    {
-                        question: "Rumus keliling persegi dengan sisi s adalah...",
-                        shape: "square",
-                        options: ["s²", "2s", "3s", "4s"],
-                        answer: "4s"
-                    },
-                    {
-                        question: "Berapa jumlah rusuk pada sebuah kubus?",
-                        shape: "cube",
-                        options: ["6", "8", "12", "24"],
-                        answer: "12"
-                    },
-                    {
-                        question: "Rumus volume tabung adalah...",
-                        shape: "cylinder",
-                        options: ["πr²h", "2πrh", "πr²", "4/3πr³"],
-                        answer: "πr²h"
-                    },
-                    {
-                        question: "Berapa jumlah diagonal pada sebuah persegi?",
-                        shape: "square",
-                        options: ["1", "2", "3", "4"],
-                        answer: "2"
-                    },
-                    {
-                        question: "Rumus luas permukaan kubus dengan sisi s adalah...",
-                        shape: "cube",
-                        options: ["s²", "4s²", "5s²", "6s²"],
-                        answer: "6s²"
-                    }
+            // Game data
+            const shapes = {
+                level1: [
+                    { name: 'Persegi', svgPath: 'M50,50 L150,50 L150,150 L50,150 Z', options: ['Persegi', 'Segitiga', 'Lingkaran', 'Persegi Panjang'] },
+                    { name: 'Segitiga', svgPath: 'M100,30 L170,150 L30,150 Z', options: ['Segitiga', 'Persegi', 'Jajar Genjang', 'Trapesium'] },
+                    { name: 'Lingkaran', svgPath: '', circle: true, options: ['Lingkaran', 'Elips', 'Persegi', 'Segitiga'] },
+                    { name: 'Persegi Panjang', svgPath: 'M40,70 L160,70 L160,130 L40,130 Z', options: ['Persegi Panjang', 'Persegi', 'Jajar Genjang', 'Trapesium'] },
+                    { name: 'Belah Ketupat', svgPath: 'M100,30 L160,100 L100,170 L40,100 Z', options: ['Belah Ketupat', 'Persegi', 'Segitiga', 'Jajar Genjang'] }
                 ],
-                sedang: [
-                    {
-                        question: "Jika sebuah segitiga memiliki sudut 30° dan 60°, berapa besar sudut ketiga?",
-                        shape: "triangle",
-                        options: ["60°", "90°", "120°", "180°"],
-                        answer: "90°"
-                    },
-                    {
-                        question: "Rumus luas permukaan bola adalah...",
-                        shape: "sphere",
-                        options: ["2πr", "πr²", "4πr²", "4/3πr³"],
-                        answer: "4πr²"
-                    },
-                    {
-                        question: "Berapa jumlah sudut dalam sebuah oktagon (segi delapan)?",
-                        shape: "octagon",
-                        options: ["720°", "1080°", "1440°", "1800°"],
-                        answer: "1080°"
-                    },
-                    {
-                        question: "Jika diameter lingkaran adalah 14 cm, berapa kelilingnya? (π = 22/7)",
-                        shape: "circle",
-                        options: ["22 cm", "44 cm", "77 cm", "154 cm"],
-                        answer: "44 cm"
-                    },
-                    {
-                        question: "Rumus volume kerucut adalah...",
-                        shape: "cone",
-                        options: ["1/3πr²h", "πr²h", "2πrh", "4/3πr³"],
-                        answer: "1/3πr²h"
-                    },
-                    {
-                        question: "Berapa jumlah titik sudut pada sebuah prisma segitiga?",
-                        shape: "triangular_prism",
-                        options: ["5", "6", "8", "9"],
-                        answer: "6"
-                    },
-                    {
-                        question: "Rumus luas trapesium dengan sisi sejajar a dan b serta tinggi h adalah...",
-                        shape: "trapezoid",
-                        options: ["a × b", "a × h", "1/2 × a × h", "1/2 × (a + b) × h"],
-                        answer: "1/2 × (a + b) × h"
-                    },
-                    {
-                        question: "Jika luas persegi adalah 64 cm², berapa panjang diagonalnya?",
-                        shape: "square",
-                        options: ["8 cm", "8√2 cm", "16 cm", "32 cm"],
-                        answer: "8√2 cm"
-                    },
-                    {
-                        question: "Rumus volume prisma adalah...",
-                        shape: "prism",
-                        options: ["panjang × lebar × tinggi", "luas alas × tinggi", "1/3 × luas alas × tinggi", "4/3πr³"],
-                        answer: "luas alas × tinggi"
-                    },
-                    {
-                        question: "Berapa jumlah sisi pada sebuah limas segiempat?",
-                        shape: "square_pyramid",
-                        options: ["4", "5", "8", "9"],
-                        answer: "5"
-                    }
+                level2: [
+                    { name: 'Trapesium', svgPath: 'M60,60 L140,60 L170,140 L30,140 Z', options: ['Trapesium', 'Jajar Genjang', 'Segitiga', 'Belah Ketupat'] },
+                    { name: 'Jajar Genjang', svgPath: 'M50,70 L150,70 L130,130 L30,130 Z', options: ['Jajar Genjang', 'Persegi Panjang', 'Trapesium', 'Belah Ketupat'] },
+                    { name: 'Segi Lima', svgPath: 'M100,30 L160,60 L140,130 L60,130 L40,60 Z', options: ['Segi Lima', 'Segi Enam', 'Trapesium', 'Belah Ketupat'] },
+                    { name: 'Segi Enam', svgPath: 'M100,30 L150,50 L150,100 L100,130 L50,100 L50,50 Z', options: ['Segi Enam', 'Segi Lima', 'Jajar Genjang', 'Belah Ketupat'] },
+                    { name: 'Elips', svgPath: '', ellipse: true, options: ['Elips', 'Lingkaran', 'Oval', 'Lensa'] }
                 ],
-                sulit: [
-                    {
-                        question: "Jika volume kubus adalah 125 cm³, berapa luas permukaannya?",
-                        shape: "cube",
-                        options: ["150 cm²", "250 cm²", "300 cm²", "750 cm²"],
-                        answer: "150 cm²"
-                    },
-                    {
-                        question: "Rumus untuk menghitung jarak antara dua titik (x₁,y₁) dan (x₂,y₂) adalah...",
-                        shape: "coordinate",
-                        options: ["√[(x₂-x₁)² + (y₂-y₁)²]", "x₂-x₁ + y₂-y₁", "(x₂-x₁)(y₂-y₁)", "(x₁y₂ - x₂y₁)"],
-                        answer: "√[(x₂-x₁)² + (y₂-y₁)²]"
-                    },
-                    {
-                        question: "Berapa jumlah diagonal ruang pada sebuah kubus?",
-                        shape: "cube",
-                        options: ["4", "6", "8", "12"],
-                        answer: "4"
-                    },
-                    {
-                        question: "Jika sebuah lingkaran memiliki luas 154 cm², berapa kelilingnya? (π = 22/7)",
-                        shape: "circle",
-                        options: ["22 cm", "44 cm", "66 cm", "88 cm"],
-                        answer: "44 cm"
-                    },
-                    {
-                        question: "Rumus untuk menghitung luas permukaan limas segiempat beraturan dengan alas sisi s dan tinggi sisi tegak t adalah...",
-                        shape: "square_pyramid",
-                        options: ["s² + 2st", "s² + 4st", "s² + 2s√(s²/4 + t²)", "s² + 2s√(s² + t²)"],
-                        answer: "s² + 2s√(s²/4 + t²)"
-                    },
-                    {
-                        question: "Jika sebuah bola memiliki volume 36π cm³, berapa jari-jarinya?",
-                        shape: "sphere",
-                        options: ["3 cm", "6 cm", "9 cm", "12 cm"],
-                        answer: "3 cm"
-                    },
-                    {
-                        question: "Rumus untuk menghitung volume frustum kerucut dengan jari-jari atas r₁, jari-jari bawah r₂, dan tinggi h adalah...",
-                        shape: "cone_frustum",
-                        options: ["πh(r₁² + r₂²)", "1/3πh(r₁² + r₂² + r₁r₂)", "πh(r₁ + r₂)", "2πh(r₁ + r₂)"],
-                        answer: "1/3πh(r₁² + r₂² + r₁r₂)"
-                    },
-                    {
-                        question: "Berapa jumlah bidang diagonal pada sebuah balok?",
-                        shape: "cuboid",
-                        options: ["4", "6", "8", "12"],
-                        answer: "6"
-                    },
-                    {
-                        question: "Jika sebuah segitiga memiliki panjang sisi 3 cm, 4 cm, dan 5 cm, berapa luasnya?",
-                        shape: "triangle",
-                        options: ["6 cm²", "7.5 cm²", "10 cm²", "12 cm²"],
-                        answer: "6 cm²"
-                    },
-                    {
-                        question: "Rumus untuk menghitung jarak titik ke bidang dengan persamaan ax + by + cz + d = 0 dari titik (x₀,y₀,z₀) adalah...",
-                        shape: "plane",
-                        options: ["(ax₀ + by₀ + cz₀ + d)/√(a² + b² + c²)", "(ax₀ + by₀ + cz₀ + d)", "√(a² + b² + c²)/(ax₀ + by₀ + cz₀ + d)", "√(ax₀ + by₀ + cz₀ + d)"],
-                        answer: "(ax₀ + by₀ + cz₀ + d)/√(a² + b² + c²)"
-                    }
+                level3: [
+                    { name: 'Kubus', svgPath: 'M60,60 L140,60 L140,140 L60,140 Z M60,60 L80,40 L160,40 L140,60 Z M140,60 L160,40 L160,120 L140,140 Z', options: ['Kubus', 'Balok', 'Limas', 'Prisma'] },
+                    { name: 'Balok', svgPath: 'M40,70 L140,70 L140,130 L40,130 Z M40,70 L60,50 L160,50 L140,70 Z M140,70 L160,50 L160,110 L140,130 Z', options: ['Balok', 'Kubus', 'Prisma', 'Tabung'] },
+                    { name: 'Silinder', cylinderSvg: true, options: ['Silinder', 'Kerucut', 'Tabung', 'Bola'] },
+                    { name: 'Kerucut', coneSvg: true, options: ['Kerucut', 'Limas', 'Silinder', 'Prisma'] },
+                    { name: 'Bola', sphereSvg: true, options: ['Bola', 'Lingkaran', 'Elips', 'Silinder'] }
+                ],
+                level4: [
+                    { name: 'Prisma Segitiga', prismSvg: true, options: ['Prisma Segitiga', 'Limas Segitiga', 'Kubus', 'Balok'] },
+                    { name: 'Limas Segiempat', pyramidSvg: true, options: ['Limas Segiempat', 'Prisma Segitiga', 'Kubus', 'Kerucut'] },
+                    { name: 'Oktahedron', octahedronSvg: true, options: ['Oktahedron', 'Tetrahedron', 'Dodecahedron', 'Icosahedron'] },
+                    { name: 'Dodecahedron', dodecahedronSvg: true, options: ['Dodecahedron', 'Oktahedron', 'Icosahedron', 'Tetrahedron'] },
+                    { name: 'Torus', torusSvg: true, options: ['Torus', 'Bola', 'Silinder', 'Elipsoid'] }
                 ]
             };
             
-            // Set difficulty
-            difficultyBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    difficultyBtns.forEach(b => b.classList.remove('bg-opacity-50'));
-                    btn.classList.add('bg-opacity-50');
-                    selectedDifficulty = btn.dataset.difficulty;
-                });
-            });
-            
-            // Start game
-            startBtn.addEventListener('click', () => {
-                startGame();
-            });
-            
-            // Next question
-            nextBtn.addEventListener('click', () => {
-                currentQuestion++;
-                if (currentQuestion < questions.length) {
-                    loadQuestion();
-                } else {
-                    showResults();
+            // Helper functions
+            function shuffleArray(array) {
+                const newArray = [...array];
+                for (let i = newArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
                 }
-            });
-            
-            // Quit game
-            quitBtn.addEventListener('click', () => {
-                clearInterval(timer);
-                showResults();
-            });
-            
-            // Play again
-            playAgainBtn.addEventListener('click', () => {
-                resultScreen.classList.add('hidden');
-                startScreen.classList.remove('hidden');
-            });
-            
-            // Go to home
-            homeBtn.addEventListener('click', () => {
-                resultScreen.classList.add('hidden');
-                startScreen.classList.remove('hidden');
-            });
-            
-            // Start the game
-            function startGame() {
-                // Reset game state
-                currentQuestion = 0;
-                score = 0;
-                correctCount = 0;
-                
-                // Set difficulty display
-                difficultyDisplay.textContent = selectedDifficulty.charAt(0).toUpperCase() + selectedDifficulty.slice(1);
-                
-                // Set questions based on difficulty
-                questions = [...questionBank[selectedDifficulty]];
-                shuffleArray(questions);
-                questions = questions.slice(0, 10); // Take only 10 questions
-                
-                // Update total questions display
-                totalQuestions.textContent = questions.length;
-                
-                // Hide start screen, show game screen
-                startScreen.classList.add('hidden');
-                gameScreen.classList.remove('hidden');
-                
-                // Load first question
-                loadQuestion();
+                return newArray;
             }
             
-            // Load question
-            function loadQuestion() {
-                clearInterval(timer);
-                
-                const question = questions[currentQuestion];
-                
-                // Update question counter
-                questionCounter.textContent = `${currentQuestion + 1}/${questions.length}`;
-                
-                // Update question text
-                questionText.textContent = question.question;
-                
-                // Render shape
-                renderShape(question.shape);
-                
-                // Generate options
-                generateOptions(question.options, question.answer);
-                
-                // Hide next button
-                nextBtn.classList.add('hidden');
-                
-                // Set timer based on difficulty
-                setTimer();
+            function getRandomShape() {
+                const levelShapes = shapes[`level${currentLevel}`];
+                return levelShapes[Math.floor(Math.random() * levelShapes.length)];
             }
             
-            // Render geometric shape
             function renderShape(shape) {
                 shapeDisplay.innerHTML = '';
                 
-                const shapeContainer = document.createElement('div');
-                shapeContainer.className = 'shape floating';
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.setAttribute('width', '100%');
+                svg.setAttribute('height', '100%');
+                svg.setAttribute('viewBox', '0 0 200 200');
+                svg.classList.add('shape');
                 
-                // Add grid background to shape container
-                const gridBg = document.createElement('div');
-                gridBg.className = 'shape-grid';
-                shapeContainer.appendChild(gridBg);
+                if (shape.circle) {
+                    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    circle.setAttribute('cx', '100');
+                    circle.setAttribute('cy', '100');
+                    circle.setAttribute('r', '70');
+                    circle.setAttribute('fill', 'none');
+                    circle.setAttribute('stroke', 'var(--neon-blue)');
+                    circle.setAttribute('stroke-width', '3');
+                    svg.appendChild(circle);
+                } else if (shape.ellipse) {
+                    const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    ellipse.setAttribute('cx', '100');
+                    ellipse.setAttribute('cy', '100');
+                    ellipse.setAttribute('rx', '80');
+                    ellipse.setAttribute('ry', '50');
+                    ellipse.setAttribute('fill', 'none');
+                    ellipse.setAttribute('stroke', 'var(--neon-blue)');
+                    ellipse.setAttribute('stroke-width', '3');
+                    svg.appendChild(ellipse);
+                } else if (shape.cylinderSvg) {
+                    // Simple cylinder
+                    const ellipse1 = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    ellipse1.setAttribute('cx', '100');
+                    ellipse1.setAttribute('cy', '60');
+                    ellipse1.setAttribute('rx', '50');
+                    ellipse1.setAttribute('ry', '20');
+                    ellipse1.setAttribute('fill', 'none');
+                    ellipse1.setAttribute('stroke', 'var(--neon-blue)');
+                    ellipse1.setAttribute('stroke-width', '3');
+                    
+                    const ellipse2 = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    ellipse2.setAttribute('cx', '100');
+                    ellipse2.setAttribute('cy', '140');
+                    ellipse2.setAttribute('rx', '50');
+                    ellipse2.setAttribute('ry', '20');
+                    ellipse2.setAttribute('fill', 'none');
+                    ellipse2.setAttribute('stroke', 'var(--neon-blue)');
+                    ellipse2.setAttribute('stroke-width', '3');
+                    
+                    const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line1.setAttribute('x1', '50');
+                    line1.setAttribute('y1', '60');
+                    line1.setAttribute('x2', '50');
+                    line1.setAttribute('y2', '140');
+                    line1.setAttribute('stroke', 'var(--neon-blue)');
+                    line1.setAttribute('stroke-width', '3');
+                    
+                    const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line2.setAttribute('x1', '150');
+                    line2.setAttribute('y1', '60');
+                    line2.setAttribute('x2', '150');
+                    line2.setAttribute('y2', '140');
+                    line2.setAttribute('stroke', 'var(--neon-blue)');
+                    line2.setAttribute('stroke-width', '3');
+                    
+                    svg.appendChild(ellipse1);
+                    svg.appendChild(ellipse2);
+                    svg.appendChild(line1);
+                    svg.appendChild(line2);
+                } else if (shape.coneSvg) {
+                    // Simple cone
+                    const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    ellipse.setAttribute('cx', '100');
+                    ellipse.setAttribute('cy', '140');
+                    ellipse.setAttribute('rx', '60');
+                    ellipse.setAttribute('ry', '20');
+                    ellipse.setAttribute('fill', 'none');
+                    ellipse.setAttribute('stroke', 'var(--neon-blue)');
+                    ellipse.setAttribute('stroke-width', '3');
+                    
+                    const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line1.setAttribute('x1', '100');
+                    line1.setAttribute('y1', '40');
+                    line1.setAttribute('x2', '40');
+                    line1.setAttribute('y2', '140');
+                    line1.setAttribute('stroke', 'var(--neon-blue)');
+                    line1.setAttribute('stroke-width', '3');
+                    
+                    const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line2.setAttribute('x1', '100');
+                    line2.setAttribute('y1', '40');
+                    line2.setAttribute('x2', '160');
+                    line2.setAttribute('y2', '140');
+                    line2.setAttribute('stroke', 'var(--neon-blue)');
+                    line2.setAttribute('stroke-width', '3');
+                    
+                    svg.appendChild(ellipse);
+                    svg.appendChild(line1);
+                    svg.appendChild(line2);
+                } else if (shape.sphereSvg) {
+                    // Simple sphere
+                    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    circle.setAttribute('cx', '100');
+                    circle.setAttribute('cy', '100');
+                    circle.setAttribute('r', '70');
+                    circle.setAttribute('fill', 'none');
+                    circle.setAttribute('stroke', 'var(--neon-blue)');
+                    circle.setAttribute('stroke-width', '3');
+                    
+                    const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    ellipse.setAttribute('cx', '100');
+                    ellipse.setAttribute('cy', '100');
+                    ellipse.setAttribute('rx', '70');
+                    ellipse.setAttribute('ry', '30');
+                    ellipse.setAttribute('fill', 'none');
+                    ellipse.setAttribute('stroke', 'var(--neon-blue)');
+                    ellipse.setAttribute('stroke-width', '2');
+                    
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    line.setAttribute('d', 'M100,30 C130,50 130,150 100,170 C70,150 70,50 100,30');
+                    line.setAttribute('fill', 'none');
+                    line.setAttribute('stroke', 'var(--neon-blue)');
+                    line.setAttribute('stroke-width', '2');
+                    
+                    svg.appendChild(circle);
+                    svg.appendChild(ellipse);
+                    svg.appendChild(line);
+                } else if (shape.prismSvg) {
+                    // Simple triangular prism
+                    const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path1.setAttribute('d', 'M60,140 L140,140 L100,60 Z');
+                    path1.setAttribute('fill', 'none');
+                    path1.setAttribute('stroke', 'var(--neon-blue)');
+                    path1.setAttribute('stroke-width', '3');
+                    
+                    const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path2.setAttribute('d', 'M80,120 L160,120 L120,40 Z');
+                    path2.setAttribute('fill', 'none');
+                    path2.setAttribute('stroke', 'var(--neon-blue)');
+                    path2.setAttribute('stroke-width', '3');
+                    
+                    const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line1.setAttribute('x1', '60');
+                    line1.setAttribute('y1', '140');
+                    line1.setAttribute('x2', '80');
+                    line1.setAttribute('y2', '120');
+                    line1.setAttribute('stroke', 'var(--neon-blue)');
+                    line1.setAttribute('stroke-width', '3');
+                    
+                    const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line2.setAttribute('x1', '140');
+                    line2.setAttribute('y1', '140');
+                    line2.setAttribute('x2', '160');
+                    line2.setAttribute('y2', '120');
+                    line2.setAttribute('stroke', 'var(--neon-blue)');
+                    line2.setAttribute('stroke-width', '3');
+                    
+                    const line3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line3.setAttribute('x1', '100');
+                    line3.setAttribute('y1', '60');
+                    line3.setAttribute('x2', '120');
+                    line3.setAttribute('y2', '40');
+                    line3.setAttribute('stroke', 'var(--neon-blue)');
+                    line3.setAttribute('stroke-width', '3');
+                    
+                    svg.appendChild(path1);
+                    svg.appendChild(path2);
+                    svg.appendChild(line1);
+                    svg.appendChild(line2);
+                    svg.appendChild(line3);
+                } else if (shape.pyramidSvg) {
+                    // Simple square pyramid
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path.setAttribute('d', 'M60,140 L140,140 L140,60 L60,60 Z');
+                    path.setAttribute('fill', 'none');
+                    path.setAttribute('stroke', 'var(--neon-blue)');
+                    path.setAttribute('stroke-width', '3');
+                    
+                    const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line1.setAttribute('x1', '60');
+                    line1.setAttribute('y1', '60');
+                    line1.setAttribute('x2', '100');
+                    line1.setAttribute('y2', '30');
+                    line1.setAttribute('stroke', 'var(--neon-blue)');
+                    line1.setAttribute('stroke-width', '3');
+                    
+                    const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line2.setAttribute('x1', '140');
+                    line2.setAttribute('y1', '60');
+                    line2.setAttribute('x2', '100');
+                    line2.setAttribute('y2', '30');
+                    line2.setAttribute('stroke', 'var(--neon-blue)');
+                    line2.setAttribute('stroke-width', '3');
+                    
+                    const line3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line3.setAttribute('x1', '60');
+                    line3.setAttribute('y1', '140');
+                    line3.setAttribute('x2', '100');
+                    line3.setAttribute('y2', '30');
+                    line3.setAttribute('stroke', 'var(--neon-blue)');
+                    line3.setAttribute('stroke-width', '3');
+                    
+                    const line4 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line4.setAttribute('x1', '140');
+                    line4.setAttribute('y1', '140');
+                    line4.setAttribute('x2', '100');
+                    line4.setAttribute('y2', '30');
+                    line4.setAttribute('stroke', 'var(--neon-blue)');
+                    line4.setAttribute('stroke-width', '3');
+                    
+                    svg.appendChild(path);
+                    svg.appendChild(line1);
+                    svg.appendChild(line2);
+                    svg.appendChild(line3);
+                    svg.appendChild(line4);
+                } else if (shape.octahedronSvg) {
+                    // Simple octahedron
+                    const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line1.setAttribute('x1', '100');
+                    line1.setAttribute('y1', '30');
+                    line1.setAttribute('x2', '150');
+                    line1.setAttribute('y2', '100');
+                    line1.setAttribute('stroke', 'var(--neon-blue)');
+                    line1.setAttribute('stroke-width', '3');
+                    
+                    const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line2.setAttribute('x1', '100');
+                    line2.setAttribute('y1', '30');
+                    line2.setAttribute('x2', '50');
+                    line2.setAttribute('y2', '100');
+                    line2.setAttribute('stroke', 'var(--neon-blue)');
+                    line2.setAttribute('stroke-width', '3');
+                    
+                    const line3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line3.setAttribute('x1', '100');
+                    line3.setAttribute('y1', '30');
+                    line3.setAttribute('x2', '100');
+                    line3.setAttribute('y2', '100');
+                    line3.setAttribute('stroke', 'var(--neon-blue)');
+                    line3.setAttribute('stroke-width', '3');
+                    
+                    const line4 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line4.setAttribute('x1', '100');
+                    line4.setAttribute('y1', '170');
+                    line4.setAttribute('x2', '150');
+                    line4.setAttribute('y2', '100');
+                    line4.setAttribute('stroke', 'var(--neon-blue)');
+                    line4.setAttribute('stroke-width', '3');
+                    
+                    const line5 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line5.setAttribute('x1', '100');
+                    line5.setAttribute('y1', '170');
+                    line5.setAttribute('x2', '50');
+                    line5.setAttribute('y2', '100');
+                    line5.setAttribute('stroke', 'var(--neon-blue)');
+                    line5.setAttribute('stroke-width', '3');
+                    
+                    const line6 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line6.setAttribute('x1', '100');
+                    line6.setAttribute('y1', '170');
+                    line6.setAttribute('x2', '100');
+                    line6.setAttribute('y2', '100');
+                    line6.setAttribute('stroke', 'var(--neon-blue)');
+                    line6.setAttribute('stroke-width', '3');
+                    
+                    const line7 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line7.setAttribute('x1', '50');
+                    line7.setAttribute('y1', '100');
+                    line7.setAttribute('x2', '150');
+                    line7.setAttribute('y2', '100');
+                    line7.setAttribute('stroke', 'var(--neon-blue)');
+                    line7.setAttribute('stroke-width', '3');
+                    
+                    svg.appendChild(line1);
+                    svg.appendChild(line2);
+                    svg.appendChild(line3);
+                    svg.appendChild(line4);
+                    svg.appendChild(line5);
+                    svg.appendChild(line6);
+                    svg.appendChild(line7);
+                } else if (shape.dodecahedronSvg) {
+                    // Simplified dodecahedron (pentagon-based)
+                    const pentagon1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    pentagon1.setAttribute('d', 'M100,50 L130,65 L120,95 L80,95 L70,65 Z');
+                    pentagon1.setAttribute('fill', 'none');
+                    pentagon1.setAttribute('stroke', 'var(--neon-blue)');
+                    pentagon1.setAttribute('stroke-width', '3');
+                    
+                    const pentagon2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    pentagon2.setAttribute('d', 'M100,150 L130,135 L120,105 L80,105 L70,135 Z');
+                    pentagon2.setAttribute('fill', 'none');
+                    pentagon2.setAttribute('stroke', 'var(--neon-blue)');
+                    pentagon2.setAttribute('stroke-width', '3');
+                    
+                    const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line1.setAttribute('x1', '70');
+                    line1.setAttribute('y1', '65');
+                    line1.setAttribute('x2', '70');
+                    line1.setAttribute('y2', '135');
+                    line1.setAttribute('stroke', 'var(--neon-blue)');
+                    line1.setAttribute('stroke-width', '3');
+                    
+                    const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line2.setAttribute('x1', '130');
+                    line2.setAttribute('y1', '65');
+                    line2.setAttribute('x2', '130');
+                    line2.setAttribute('y2', '135');
+                    line2.setAttribute('stroke', 'var(--neon-blue)');
+                    line2.setAttribute('stroke-width', '3');
+                    
+                    const line3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line3.setAttribute('x1', '80');
+                    line3.setAttribute('y1', '95');
+                    line3.setAttribute('x2', '80');
+                    line3.setAttribute('y2', '105');
+                    line3.setAttribute('stroke', 'var(--neon-blue)');
+                    line3.setAttribute('stroke-width', '3');
+                    
+                    const line4 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line4.setAttribute('x1', '120');
+                    line4.setAttribute('y1', '95');
+                    line4.setAttribute('x2', '120');
+                    line4.setAttribute('y2', '105');
+                    line4.setAttribute('stroke', 'var(--neon-blue)');
+                    line4.setAttribute('stroke-width', '3');
+                    
+                    svg.appendChild(pentagon1);
+                    svg.appendChild(pentagon2);
+                    svg.appendChild(line1);
+                    svg.appendChild(line2);
+                    svg.appendChild(line3);
+                    svg.appendChild(line4);
+                } else if (shape.torusSvg) {
+                    // Simple torus (donut)
+                    const ellipse1 = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    ellipse1.setAttribute('cx', '100');
+                    ellipse1.setAttribute('cy', '100');
+                    ellipse1.setAttribute('rx', '70');
+                    ellipse1.setAttribute('ry', '30');
+                    ellipse1.setAttribute('fill', 'none');
+                    ellipse1.setAttribute('stroke', 'var(--neon-blue)');
+                    ellipse1.setAttribute('stroke-width', '3');
+                    
+                    const ellipse2 = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    ellipse2.setAttribute('cx', '100');
+                    ellipse2.setAttribute('cy', '100');
+                    ellipse2.setAttribute('rx', '40');
+                    ellipse2.setAttribute('ry', '15');
+                    ellipse2.setAttribute('fill', 'none');
+                    ellipse2.setAttribute('stroke', 'var(--neon-blue)');
+                    ellipse2.setAttribute('stroke-width', '3');
+                    
+                    const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path1.setAttribute('d', 'M30,100 C30,115 170,115 170,100');
+                    path1.setAttribute('fill', 'none');
+                    path1.setAttribute('stroke', 'var(--neon-blue)');
+                    path1.setAttribute('stroke-width', '2');
+                    path1.setAttribute('stroke-dasharray', '5,5');
+                    
+                    const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path2.setAttribute('d', 'M30,100 C30,85 170,85 170,100');
+                    path2.setAttribute('fill', 'none');
+                    path2.setAttribute('stroke', 'var(--neon-blue)');
+                    path2.setAttribute('stroke-width', '3');
+                    
+                    svg.appendChild(ellipse1);
+                    svg.appendChild(ellipse2);
+                    svg.appendChild(path1);
+                    svg.appendChild(path2);
+                } else {
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path.setAttribute('d', shape.svgPath);
+                    path.setAttribute('fill', 'none');
+                    path.setAttribute('stroke', 'var(--neon-blue)');
+                    path.setAttribute('stroke-width', '3');
+                    svg.appendChild(path);
+                }
                 
-                // Get random neon colors for shape elements
-                const primaryColor = getRandomNeonColor();
-                const secondaryColor = getRandomNeonColor(primaryColor); // Ensure different color
+                shapeDisplay.appendChild(svg);
+            }
+            
+            function renderOptions(shape) {
+                optionsContainer.innerHTML = '';
                 
-                // Create SVG with improved styling
-                const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                svg.setAttribute("width", "200");
-                svg.setAttribute("height", "200");
-                svg.setAttribute("viewBox", "0 0 200 200");
-                svg.classList.add("shape-glow");
+                const shuffledOptions = shuffleArray(shape.options);
                 
-                switch (shape) {
-                    case 'triangle':
-                        // Equilateral triangle
-                        const triangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                        triangle.setAttribute("points", "100,30 30,150 170,150");
-                        triangle.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        triangle.setAttribute("stroke", primaryColor);
-                        triangle.setAttribute("stroke-width", "3");
-                        triangle.setAttribute("stroke-linecap", "round");
-                        triangle.setAttribute("stroke-linejoin", "round");
-                        
-                        // Add angle markers
-                        const angles = [
-                            {x: 100, y: 30, textX: 100, textY: 20, angle: "60°"},
-                            {x: 30, y: 150, textX: 20, textY: 150, angle: "60°"},
-                            {x: 170, y: 150, textX: 180, textY: 150, angle: "60°"}
-                        ];
-                        
-                        svg.appendChild(triangle);
-                        
-                        // Add angle arcs
-                        angles.forEach(point => {
-                            const arc = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                            if (point.x === 100) {
-                                arc.setAttribute("d", "M 90,40 A 15,15 0 0 1 110,40");
-                            } else if (point.x === 30) {
-                                arc.setAttribute("d", "M 40,140 A 15,15 0 0 0 40,160");
-                            } else {
-                                arc.setAttribute("d", "M 160,140 A 15,15 0 0 1 160,160");
-                            }
-                            arc.setAttribute("fill", "none");
-                            arc.setAttribute("stroke", secondaryColor);
-                            arc.setAttribute("stroke-width", "2");
-                            svg.appendChild(arc);
-                            
-                            // Add angle text
-                            const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                            text.setAttribute("x", point.textX);
-                            text.setAttribute("y", point.textY);
-                            text.setAttribute("fill", secondaryColor);
-                            text.setAttribute("font-size", "12");
-                            text.setAttribute("text-anchor", "middle");
-                            text.textContent = point.angle;
-                            svg.appendChild(text);
-                        });
-                        break;
-                        
-                    case 'square':
-                        // Square with diagonals
-                        const square = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                        square.setAttribute("x", "40");
-                        square.setAttribute("y", "40");
-                        square.setAttribute("width", "120");
-                        square.setAttribute("height", "120");
-                        square.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        square.setAttribute("stroke", primaryColor);
-                        square.setAttribute("stroke-width", "3");
-                        square.setAttribute("stroke-linecap", "round");
-                        square.setAttribute("stroke-linejoin", "round");
-                        
-                        // Add diagonals
-                        const diagonal1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        diagonal1.setAttribute("x1", "40");
-                        diagonal1.setAttribute("y1", "40");
-                        diagonal1.setAttribute("x2", "160");
-                        diagonal1.setAttribute("y2", "160");
-                        diagonal1.setAttribute("stroke", secondaryColor);
-                        diagonal1.setAttribute("stroke-width", "2");
-                        diagonal1.setAttribute("stroke-dasharray", "5,5");
-                        
-                        const diagonal2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        diagonal2.setAttribute("x1", "160");
-                        diagonal2.setAttribute("y1", "40");
-                        diagonal2.setAttribute("x2", "40");
-                        diagonal2.setAttribute("y2", "160");
-                        diagonal2.setAttribute("stroke", secondaryColor);
-                        diagonal2.setAttribute("stroke-width", "2");
-                        diagonal2.setAttribute("stroke-dasharray", "5,5");
-                        
-                        // Add angle markers for 90° angles
-                        const squareAngles = [
-                            {x: 55, y: 55},
-                            {x: 145, y: 55},
-                            {x: 145, y: 145},
-                            {x: 55, y: 145}
-                        ];
-                        
-                        svg.appendChild(square);
-                        svg.appendChild(diagonal1);
-                        svg.appendChild(diagonal2);
-                        
-                        squareAngles.forEach(point => {
-                            const angleMarker = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                            if (point.x === 55 && point.y === 55) {
-                                angleMarker.setAttribute("d", "M 55,45 L 55,55 L 45,55");
-                            } else if (point.x === 145 && point.y === 55) {
-                                angleMarker.setAttribute("d", "M 145,45 L 145,55 L 155,55");
-                            } else if (point.x === 145 && point.y === 145) {
-                                angleMarker.setAttribute("d", "M 145,155 L 145,145 L 155,145");
-                            } else {
-                                angleMarker.setAttribute("d", "M 55,155 L 55,145 L 45,145");
-                            }
-                            angleMarker.setAttribute("fill", "none");
-                            angleMarker.setAttribute("stroke", secondaryColor);
-                            angleMarker.setAttribute("stroke-width", "2");
-                            svg.appendChild(angleMarker);
-                        });
-                        
-                        // Add side length label
-                        const sideLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        sideLabel.setAttribute("x", "100");
-                        sideLabel.setAttribute("y", "30");
-                        sideLabel.setAttribute("fill", secondaryColor);
-                        sideLabel.setAttribute("font-size", "14");
-                        sideLabel.setAttribute("text-anchor", "middle");
-                        sideLabel.textContent = "s";
-                        svg.appendChild(sideLabel);
-                        break;
-                        
-                    case 'circle':
-                        // Circle with radius and diameter
-                        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                        circle.setAttribute("cx", "100");
-                        circle.setAttribute("cy", "100");
-                        circle.setAttribute("r", "70");
-                        circle.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        circle.setAttribute("stroke", primaryColor);
-                        circle.setAttribute("stroke-width", "3");
-                        
-                        // Add center point
-                        const centerPoint = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                        centerPoint.setAttribute("cx", "100");
-                        centerPoint.setAttribute("cy", "100");
-                        centerPoint.setAttribute("r", "3");
-                        centerPoint.setAttribute("fill", secondaryColor);
-                        
-                        // Add radius line
-                        const radius = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        radius.setAttribute("x1", "100");
-                        radius.setAttribute("y1", "100");
-                        radius.setAttribute("x2", "170");
-                        radius.setAttribute("y2", "100");
-                        radius.setAttribute("stroke", secondaryColor);
-                        radius.setAttribute("stroke-width", "2");
-                        
-                        // Add diameter line
-                        const diameter = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        diameter.setAttribute("x1", "30");
-                        diameter.setAttribute("y1", "100");
-                        diameter.setAttribute("x2", "170");
-                        diameter.setAttribute("y2", "100");
-                        diameter.setAttribute("stroke", secondaryColor);
-                        diameter.setAttribute("stroke-width", "2");
-                        diameter.setAttribute("stroke-dasharray", "5,5");
-                        
-                        // Add labels
-                        const radiusLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        radiusLabel.setAttribute("x", "135");
-                        radiusLabel.setAttribute("y", "95");
-                        radiusLabel.setAttribute("fill", secondaryColor);
-                        radiusLabel.setAttribute("font-size", "14");
-                        radiusLabel.textContent = "r";
-                        
-                        const diameterLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        diameterLabel.setAttribute("x", "100");
-                        diameterLabel.setAttribute("y", "85");
-                        diameterLabel.setAttribute("fill", secondaryColor);
-                        diameterLabel.setAttribute("font-size", "14");
-                        diameterLabel.setAttribute("text-anchor", "middle");
-                        diameterLabel.textContent = "d";
-                        
-                        svg.appendChild(diameter);
-                        svg.appendChild(circle);
-                        svg.appendChild(centerPoint);
-                        svg.appendChild(radius);
-                        svg.appendChild(radiusLabel);
-                        svg.appendChild(diameterLabel);
-                        break;
-                        
-                    case 'cube':
-                        // Improved 3D cube
-                        // Front face
-                        const frontFace = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                        frontFace.setAttribute("points", "50,50 150,50 150,150 50,150");
-                        frontFace.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        frontFace.setAttribute("stroke", primaryColor);
-                        frontFace.setAttribute("stroke-width", "3");
-                        
-                        // Back face
-                        const backFace = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                        backFace.setAttribute("points", "80,20 180,20 180,120 80,120");
-                        backFace.setAttribute("fill", "rgba(26, 26, 46, 0.5)");
-                        backFace.setAttribute("stroke", primaryColor);
-                        backFace.setAttribute("stroke-width", "2");
-                        
-                        // Connecting lines
-                        const lines = [
-                            {x1: 50, y1: 50, x2: 80, y2: 20},
-                            {x1: 150, y1: 50, x2: 180, y2: 20},
-                            {x1: 150, y1: 150, x2: 180, y2: 120},
-                            {x1: 50, y1: 150, x2: 80, y2: 120}
-                        ];
-                        
-                        // Diagonal lines (hidden)
-                        const diagonals = [
-                            {x1: 50, y1: 50, x2: 150, y2: 150, dash: "5,5"},
-                            {x1: 150, y1: 50, x2: 50, y2: 150, dash: "5,5"},
-                            {x1: 80, y1: 20, x2: 180, y2: 120, dash: "5,5"},
-                            {x1: 180, y1: 20, x2: 80, y2: 120, dash: "5,5"}
-                        ];
-                        
-                        svg.appendChild(backFace);
-                        svg.appendChild(frontFace);
-                        
-                        lines.forEach(line => {
-                            const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                            l.setAttribute("x1", line.x1);
-                            l.setAttribute("y1", line.y1);
-                            l.setAttribute("x2", line.x2);
-                            l.setAttribute("y2", line.y2);
-                            l.setAttribute("stroke", primaryColor);
-                            l.setAttribute("stroke-width", "2");
-                            svg.appendChild(l);
-                        });
-                        
-                        // Add edge label
-                        const edgeLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        edgeLabel.setAttribute("x", "40");
-                        edgeLabel.setAttribute("y", "100");
-                        edgeLabel.setAttribute("fill", secondaryColor);
-                        edgeLabel.setAttribute("font-size", "14");
-                        edgeLabel.textContent = "s";
-                        svg.appendChild(edgeLabel);
-                        break;
-                        
-                    case 'pentagon':
-                        // Regular pentagon
-                        const pentagon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                        pentagon.setAttribute("points", "100,30 170,75 140,150 60,150 30,75");
-                        pentagon.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        pentagon.setAttribute("stroke", primaryColor);
-                        pentagon.setAttribute("stroke-width", "3");
-                        
-                        // Add center point
-                        const pentCenter = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                        pentCenter.setAttribute("cx", "100");
-                        pentCenter.setAttribute("cy", "95");
-                        pentCenter.setAttribute("r", "3");
-                        pentCenter.setAttribute("fill", secondaryColor);
-                        
-                        // Add radii
-                        const radii = [
-                            {x1: 100, y1: 95, x2: 100, y2: 30},
-                            {x1: 100, y1: 95, x2: 170, y2: 75},
-                            {x1: 100, y1: 95, x2: 140, y2: 150},
-                            {x1: 100, y1: 95, x2: 60, y2: 150},
-                            {x1: 100, y1: 95, x2: 30, y2: 75}
-                        ];
-                        
-                        svg.appendChild(pentagon);
-                        svg.appendChild(pentCenter);
-                        
-                        radii.forEach(line => {
-                            const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                            l.setAttribute("x1", line.x1);
-                            l.setAttribute("y1", line.y1);
-                            l.setAttribute("x2", line.x2);
-                            l.setAttribute("y2", line.y2);
-                            l.setAttribute("stroke", secondaryColor);
-                            l.setAttribute("stroke-width", "1.5");
-                            l.setAttribute("stroke-dasharray", "3,3");
-                            svg.appendChild(l);
-                        });
-                        
-                        // Add angle label
-                        const pentAngle = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        pentAngle.setAttribute("x", "100");
-                        pentAngle.setAttribute("y", "20");
-                        pentAngle.setAttribute("fill", secondaryColor);
-                        pentAngle.setAttribute("font-size", "14");
-                        pentAngle.setAttribute("text-anchor", "middle");
-                        pentAngle.textContent = "108°";
-                        svg.appendChild(pentAngle);
-                        break;
-                        
-                    case 'cylinder':
-                        // Cylinder with improved 3D effect
-                        // Top ellipse
-                        const topEllipse = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
-                        topEllipse.setAttribute("cx", "100");
-                        topEllipse.setAttribute("cy", "50");
-                        topEllipse.setAttribute("rx", "60");
-                        topEllipse.setAttribute("ry", "20");
-                        topEllipse.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        topEllipse.setAttribute("stroke", primaryColor);
-                        topEllipse.setAttribute("stroke-width", "3");
-                        
-                        // Bottom ellipse
-                        const bottomEllipse = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
-                        bottomEllipse.setAttribute("cx", "100");
-                        bottomEllipse.setAttribute("cy", "150");
-                        bottomEllipse.setAttribute("rx", "60");
-                        bottomEllipse.setAttribute("ry", "20");
-                        bottomEllipse.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        bottomEllipse.setAttribute("stroke", primaryColor);
-                        bottomEllipse.setAttribute("stroke-width", "3");
-                        
-                        // Side lines
-                        const sideLines = [
-                            {x1: 40, y1: 50, x2: 40, y2: 150},
-                            {x1: 160, y1: 50, x2: 160, y2: 150}
-                        ];
-                        
-                        // Center line (height)
-                        const centerLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        centerLine.setAttribute("x1", "100");
-                        centerLine.setAttribute("y1", "50");
-                        centerLine.setAttribute("x2", "100");
-                        centerLine.setAttribute("y2", "150");
-                        centerLine.setAttribute("stroke", secondaryColor);
-                        centerLine.setAttribute("stroke-width", "2");
-                        centerLine.setAttribute("stroke-dasharray", "5,5");
-                        
-                        // Radius line
-                        const cylRadius = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        cylRadius.setAttribute("x1", "100");
-                        cylRadius.setAttribute("y1", "50");
-                        cylRadius.setAttribute("x2", "160");
-                        cylRadius.setAttribute("y2", "50");
-                        cylRadius.setAttribute("stroke", secondaryColor);
-                        cylRadius.setAttribute("stroke-width", "2");
-                        
-                        svg.appendChild(centerLine);
-                        
-                        sideLines.forEach(line => {
-                            const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                            l.setAttribute("x1", line.x1);
-                            l.setAttribute("y1", line.y1);
-                            l.setAttribute("x2", line.x2);
-                            l.setAttribute("y2", line.y2);
-                            l.setAttribute("stroke", primaryColor);
-                            l.setAttribute("stroke-width", "3");
-                            svg.appendChild(l);
-                        });
-                        
-                        svg.appendChild(bottomEllipse);
-                        svg.appendChild(topEllipse);
-                        svg.appendChild(cylRadius);
-                        
-                        // Add labels
-                        const rLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        rLabel.setAttribute("x", "130");
-                        rLabel.setAttribute("y", "45");
-                        rLabel.setAttribute("fill", secondaryColor);
-                        rLabel.setAttribute("font-size", "14");
-                        rLabel.textContent = "r";
-                        
-                        const hLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        hLabel.setAttribute("x", "110");
-                        hLabel.setAttribute("y", "100");
-                        hLabel.setAttribute("fill", secondaryColor);
-                        hLabel.setAttribute("font-size", "14");
-                        hLabel.textContent = "h";
-                        
-                        svg.appendChild(rLabel);
-                        svg.appendChild(hLabel);
-                        break;
-                        
-                    case 'sphere':
-                        // Sphere with 3D effect
-                        // Main circle
-                        const mainCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                        mainCircle.setAttribute("cx", "100");
-                        mainCircle.setAttribute("cy", "100");
-                        mainCircle.setAttribute("r", "70");
-                        mainCircle.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        mainCircle.setAttribute("stroke", primaryColor);
-                        mainCircle.setAttribute("stroke-width", "3");
-                        
-                        // Horizontal ellipse
-                        const horizEllipse = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
-                        horizEllipse.setAttribute("cx", "100");
-                        horizEllipse.setAttribute("cy", "100");
-                        horizEllipse.setAttribute("rx", "70");
-                        horizEllipse.setAttribute("ry", "25");
-                        horizEllipse.setAttribute("fill", "none");
-                        horizEllipse.setAttribute("stroke", secondaryColor);
-                        horizEllipse.setAttribute("stroke-width", "2");
-                        
-                        // Vertical ellipse
-                        const vertEllipse = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
-                        vertEllipse.setAttribute("cx", "100");
-                        vertEllipse.setAttribute("cy", "100");
-                        vertEllipse.setAttribute("rx", "25");
-                        vertEllipse.setAttribute("ry", "70");
-                        vertEllipse.setAttribute("fill", "none");
-                        vertEllipse.setAttribute("stroke", secondaryColor);
-                        vertEllipse.setAttribute("stroke-width", "2");
-                        
-                        // Center point
-                        const sphereCenter = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                        sphereCenter.setAttribute("cx", "100");
-                        sphereCenter.setAttribute("cy", "100");
-                        sphereCenter.setAttribute("r", "3");
-                        sphereCenter.setAttribute("fill", secondaryColor);
-                        
-                        // Radius line
-                        const sphereRadius = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        sphereRadius.setAttribute("x1", "100");
-                        sphereRadius.setAttribute("y1", "100");
-                        sphereRadius.setAttribute("x2", "170");
-                        sphereRadius.setAttribute("y2", "100");
-                        sphereRadius.setAttribute("stroke", secondaryColor);
-                        sphereRadius.setAttribute("stroke-width", "2");
-                        
-                        svg.appendChild(mainCircle);
-                        svg.appendChild(horizEllipse);
-                        svg.appendChild(vertEllipse);
-                        svg.appendChild(sphereCenter);
-                        svg.appendChild(sphereRadius);
-                        
-                        // Add radius label
-                        const sphereRLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        sphereRLabel.setAttribute("x", "135");
-                        sphereRLabel.setAttribute("y", "95");
-                        sphereRLabel.setAttribute("fill", secondaryColor);
-                        sphereRLabel.setAttribute("font-size", "14");
-                        sphereRLabel.textContent = "r";
-                        svg.appendChild(sphereRLabel);
-                        break;
-                        
-                    case 'octagon':
-                        // Regular octagon
-                        const octagon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                        octagon.setAttribute("points", "70,30 130,30 170,70 170,130 130,170 70,170 30,130 30,70");
-                        octagon.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        octagon.setAttribute("stroke", primaryColor);
-                        octagon.setAttribute("stroke-width", "3");
-                        
-                        // Center point
-                        const octCenter = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                        octCenter.setAttribute("cx", "100");
-                        octCenter.setAttribute("cy", "100");
-                        octCenter.setAttribute("r", "3");
-                        octCenter.setAttribute("fill", secondaryColor);
-                        
-                        // Radii
-                        const octRadii = [
-                            {x2: 70, y2: 30},
-                            {x2: 130, y2: 30},
-                            {x2: 170, y2: 70},
-                            {x2: 170, y2: 130},
-                            {x2: 130, y2: 170},
-                            {x2: 70, y2: 170},
-                            {x2: 30, y2: 130},
-                            {x2: 30, y2: 70}
-                        ];
-                        
-                        svg.appendChild(octagon);
-                        svg.appendChild(octCenter);
-                        
-                        octRadii.forEach(point => {
-                            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                            line.setAttribute("x1", "100");
-                            line.setAttribute("y1", "100");
-                            line.setAttribute("x2", point.x2);
-                            line.setAttribute("y2", point.y2);
-                            line.setAttribute("stroke", secondaryColor);
-                            line.setAttribute("stroke-width", "1.5");
-                            line.setAttribute("stroke-dasharray", "3,3");
-                            svg.appendChild(line);
-                        });
-                        
-                        // Add angle label
-                        const octAngle = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        octAngle.setAttribute("x", "100");
-                        octAngle.setAttribute("y", "20");
-                        octAngle.setAttribute("fill", secondaryColor);
-                        octAngle.setAttribute("font-size", "14");
-                        octAngle.setAttribute("text-anchor", "middle");
-                        octAngle.textContent = "135°";
-                        svg.appendChild(octAngle);
-                        break;
-                        
-                    case 'cone':
-                        // Cone with improved 3D effect
-                        // Base ellipse
-                        const coneBase = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
-                        coneBase.setAttribute("cx", "100");
-                        coneBase.setAttribute("cy", "150");
-                        coneBase.setAttribute("rx", "70");
-                        coneBase.setAttribute("ry", "20");
-                        coneBase.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        coneBase.setAttribute("stroke", primaryColor);
-                        coneBase.setAttribute("stroke-width", "3");
-                        
-                        // Side lines
-                        const coneSides = [
-                            {x1: 100, y1: 40, x2: 30, y2: 150},
-                            {x1: 100, y1: 40, x2: 170, y2: 150}
-                        ];
-                        
-                        // Height line
-                        const coneHeight = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        coneHeight.setAttribute("x1", "100");
-                        coneHeight.setAttribute("y1", "40");
-                        coneHeight.setAttribute("x2", "100");
-                        coneHeight.setAttribute("y2", "150");
-                        coneHeight.setAttribute("stroke", secondaryColor);
-                        coneHeight.setAttribute("stroke-width", "2");
-                        coneHeight.setAttribute("stroke-dasharray", "5,5");
-                        
-                        // Radius line
-                        const coneRadius = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        coneRadius.setAttribute("x1", "100");
-                        coneRadius.setAttribute("y1", "150");
-                        coneRadius.setAttribute("x2", "170");
-                        coneRadius.setAttribute("y2", "150");
-                        coneRadius.setAttribute("stroke", secondaryColor);
-                        coneRadius.setAttribute("stroke-width", "2");
-                        
-                        svg.appendChild(coneHeight);
-                        
-                        coneSides.forEach(line => {
-                            const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                            l.setAttribute("x1", line.x1);
-                            l.setAttribute("y1", line.y1);
-                            l.setAttribute("x2", line.x2);
-                            l.setAttribute("y2", line.y2);
-                            l.setAttribute("stroke", primaryColor);
-                            l.setAttribute("stroke-width", "3");
-                            svg.appendChild(l);
-                        });
-                        
-                        svg.appendChild(coneBase);
-                        svg.appendChild(coneRadius);
-                        
-                        // Add labels
-                        const coneRLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        coneRLabel.setAttribute("x", "135");
-                        coneRLabel.setAttribute("y", "145");
-                        coneRLabel.setAttribute("fill", secondaryColor);
-                        coneRLabel.setAttribute("font-size", "14");
-                        coneRLabel.textContent = "r";
-                        
-                        const coneHLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        coneHLabel.setAttribute("x", "110");
-                        coneHLabel.setAttribute("y", "95");
-                        coneHLabel.setAttribute("fill", secondaryColor);
-                        coneHLabel.setAttribute("font-size", "14");
-                        coneHLabel.textContent = "h";
-                        
-                        svg.appendChild(coneRLabel);
-                        svg.appendChild(coneHLabel);
-                        break;
-                        
-                    case 'triangular_prism':
-                        // Triangular prism with improved 3D effect
-                        // Front face (triangle)
-                        const frontTriangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                        frontTriangle.setAttribute("points", "50,150 150,150 100,70");
-                        frontTriangle.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        frontTriangle.setAttribute("stroke", primaryColor);
-                        frontTriangle.setAttribute("stroke-width", "3");
-                        
-                        // Back face (triangle)
-                        const backTriangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                        backTriangle.setAttribute("points", "80,130 180,130 130,50");
-                        backTriangle.setAttribute("fill", "rgba(26, 26, 46, 0.5)");
-                        backTriangle.setAttribute("stroke", primaryColor);
-                        backTriangle.setAttribute("stroke-width", "2");
-                        
-                        // Connecting lines
-                        const prismLines = [
-                            {x1: 50, y1: 150, x2: 80, y2: 130},
-                            {x1: 150, y1: 150, x2: 180, y2: 130},
-                            {x1: 100, y1: 70, x2: 130, y2: 50}
-                        ];
-                        
-                        svg.appendChild(backTriangle);
-                        svg.appendChild(frontTriangle);
-                        
-                        prismLines.forEach(line => {
-                            const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                            l.setAttribute("x1", line.x1);
-                            l.setAttribute("y1", line.y1);
-                            l.setAttribute("x2", line.x2);
-                            l.setAttribute("y2", line.y2);
-                            l.setAttribute("stroke", primaryColor);
-                            l.setAttribute("stroke-width", "2");
-                            svg.appendChild(l);
-                        });
-                        
-                        // Add height line
-                        const prismHeight = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        prismHeight.setAttribute("x1", "100");
-                        prismHeight.setAttribute("y1", "150");
-                        prismHeight.setAttribute("x2", "100");
-                        prismHeight.setAttribute("y2", "70");
-                        prismHeight.setAttribute("stroke", secondaryColor);
-                        prismHeight.setAttribute("stroke-width", "2");
-                        prismHeight.setAttribute("stroke-dasharray", "5,5");
-                        svg.appendChild(prismHeight);
-                        
-                        // Add height label
-                        const prismHLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        prismHLabel.setAttribute("x", "90");
-                        prismHLabel.setAttribute("y", "110");
-                        prismHLabel.setAttribute("fill", secondaryColor);
-                        prismHLabel.setAttribute("font-size", "14");
-                        prismHLabel.textContent = "h";
-                        svg.appendChild(prismHLabel);
-                        break;
-                        
-                    case 'trapezoid':
-                        // Trapezoid
-                        const trapezoid = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                        trapezoid.setAttribute("points", "40,60 160,60 180,140 20,140");
-                        trapezoid.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        trapezoid.setAttribute("stroke", primaryColor);
-                        trapezoid.setAttribute("stroke-width", "3");
-                        
-                        // Height line
-                        const trapHeight = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        trapHeight.setAttribute("x1", "100");
-                        trapHeight.setAttribute("y1", "60");
-                        trapHeight.setAttribute("x2", "100");
-                        trapHeight.setAttribute("y2", "140");
-                        trapHeight.setAttribute("stroke", secondaryColor);
-                        trapHeight.setAttribute("stroke-width", "2");
-                        trapHeight.setAttribute("stroke-dasharray", "5,5");
-                        
-                        svg.appendChild(trapezoid);
-                        svg.appendChild(trapHeight);
-                        
-                        // Add labels
-                        const topBase = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        topBase.setAttribute("x", "100");
-                        topBase.setAttribute("y", "55");
-                        topBase.setAttribute("fill", secondaryColor);
-                        topBase.setAttribute("font-size", "14");
-                        topBase.setAttribute("text-anchor", "middle");
-                        topBase.textContent = "a";
-                        
-                        const bottomBase = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        bottomBase.setAttribute("x", "100");
-                        bottomBase.setAttribute("y", "155");
-                        bottomBase.setAttribute("fill", secondaryColor);
-                        bottomBase.setAttribute("font-size", "14");
-                        bottomBase.setAttribute("text-anchor", "middle");
-                        bottomBase.textContent = "b";
-                        
-                        const heightLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        heightLabel.setAttribute("x", "110");
-                        heightLabel.setAttribute("y", "100");
-                        heightLabel.setAttribute("fill", secondaryColor);
-                        heightLabel.setAttribute("font-size", "14");
-                        heightLabel.textContent = "h";
-                        
-                        svg.appendChild(topBase);
-                        svg.appendChild(bottomBase);
-                        svg.appendChild(heightLabel);
-                        break;
-                        
-                    case 'prism':
-                        // Rectangular prism (cuboid)
-                        // Front face
-                        const prismFront = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                        prismFront.setAttribute("x", "40");
-                        prismFront.setAttribute("y", "60");
-                        prismFront.setAttribute("width", "100");
-                        prismFront.setAttribute("height", "80");
-                        prismFront.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        prismFront.setAttribute("stroke", primaryColor);
-                        prismFront.setAttribute("stroke-width", "3");
-                        
-                        // Top face
-                        const prismTop = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                        prismTop.setAttribute("points", "40,60 140,60 170,30 70,30");
-                        prismTop.setAttribute("fill", "rgba(26, 26, 46, 0.6)");
-                        prismTop.setAttribute("stroke", primaryColor);
-                        prismTop.setAttribute("stroke-width", "2");
-                        
-                        // Side face
-                        const prismSide = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                        prismSide.setAttribute("points", "140,60 140,140 170,110 170,30");
-                        prismSide.setAttribute("fill", "rgba(26, 26, 46, 0.5)");
-                        prismSide.setAttribute("stroke", primaryColor);
-                        prismSide.setAttribute("stroke-width", "2");
-                        
-                        svg.appendChild(prismTop);
-                        svg.appendChild(prismSide);
-                        svg.appendChild(prismFront);
-                        
-                        // Add dimension labels
-                        const lengthLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        lengthLabel.setAttribute("x", "90");
-                        lengthLabel.setAttribute("y", "155");
-                        lengthLabel.setAttribute("fill", secondaryColor);
-                        lengthLabel.setAttribute("font-size", "14");
-                        lengthLabel.setAttribute("text-anchor", "middle");
-                        lengthLabel.textContent = "length";
-                        
-                        const widthLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        widthLabel.setAttribute("x", "155");
-                        widthLabel.setAttribute("y", "85");
-                        widthLabel.setAttribute("fill", secondaryColor);
-                        widthLabel.setAttribute("font-size", "14");
-                        widthLabel.textContent = "width";
-                        
-                        const heisghtLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        heightLabel.setAttribute("x", "30");
-                        heightLabel.setAttribute("y", "100");
-                        heightLabel.setAttribute("fill", secondaryColor);
-                        heightLabel.setAttribute("font-size", "14");
-                        heightLabel.textContent = "height";
-                        
-                        svg.appendChild(lengthLabel);
-                        svg.appendChild(widthLabel);
-                        svg.appendChild(heightLabel);
-                        break;
-                        
-                    case 'square_pyramid':
-                        // Square pyramid
-                        // Base
-                        const pyramidBase = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                        pyramidBase.setAttribute("x", "40");
-                        pyramidBase.setAttribute("y", "120");
-                        pyramidBase.setAttribute("width", "120");
-                        pyramidBase.setAttribute("height", "40");
-                        pyramidBase.setAttribute("fill", "rgba(26, 26, 46, 0.7)");
-                        pyramidBase.setAttribute("stroke", primaryColor);
-                        pyramidBase.setAttribute("stroke-width", "3");
-                        
-                        // Edges to apex
-                        const pyramidEdges = [
-                            {x1: 40, y1: 120, x2: 100, y2: 40},
-                            {x1: 160, y1: 120, x2: 100, y2: 40},
-                            {x1: 40, y1: 160, x2: 100, y2: 40},
-                            {x1: 160, y1: 160, x2: 100, y2: 40}
-                        ];
-                        
-                        // Height line
-                        const pyramidHeight = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        pyramidHeight.setAttribute("x1", "100");
-                        pyramidHeight.setAttribute("y1", "140");
-                        pyramidHeight.setAttribute("x2", "100");
-                        pyramidHeight.setAttribute("y2", "40");
-                        pyramidHeight.setAttribute("stroke", secondaryColor);
-                        pyramidHeight.setAttribute("stroke-width", "2");
-                        pyramidHeight.setAttribute("stroke-dasharray", "5,5");
-                        
-                        svg.appendChild(pyramidBase);
-                        svg.appendChild(pyramidHeight);
-                        
-                        pyramidEdges.forEach(edge => {
-                            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                            line.setAttribute("x1", edge.x1);
-                            line.setAttribute("y1", edge.y1);
-                            line.setAttribute("x2", edge.x2);
-                            line.setAttribute("y2", edge.y2);
-                            line.setAttribute("stroke", primaryColor);
-                            line.setAttribute("stroke-width", "2");
-                            svg.appendChild(line);
-                        });
-                        
-                        // Add labels
-                        const baseLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        baseLabel.setAttribute("x", "100");
-                        baseLabel.setAttribute("y", "140");
-                        baseLabel.setAttribute("fill", secondaryColor);
-                        baseLabel.setAttribute("font-size", "14");
-                        baseLabel.setAttribute("text-anchor", "middle");
-                        baseLabel.textContent = "s";
-                        
-                        const pyramidHLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        pyramidHLabel.setAttribute("x", "110");
-                        pyramidHLabel.setAttribute("y", "90");
-                        pyramidHLabel.setAttribute("fill", secondaryColor);
-                        pyramidHLabel.setAttribute("font-size", "14");
-                        pyramidHLabel.textContent = "h";
-                        
-                        svg.appendChild(baseLabel);
-                        svg.appendChild(pyramidHLabel);
-                        break;
-                        
-                    case 'coordinate':
-                        // Coordinate system with distance between points
-                        // X and Y axes
-                        const xAxis = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        xAxis.setAttribute("x1", "20");
-                        xAxis.setAttribute("y1", "100");
-                        xAxis.setAttribute("x2", "180");
-                        xAxis.setAttribute("y2", "100");
-                        xAxis.setAttribute("stroke", primaryColor);
-                        xAxis.setAttribute("stroke-width", "2");
-                        
-                        const yAxis = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                        yAxis.setAttribute("x1", "100");
-                        yAxis.setAttribute("y1", "20");
-                        yAxis.setAttribute("x2", "100");
-                        yAxis.setAttribute("y2", "180");
-                        yAxis.setAttribute("stroke", primaryColor);
-                        yAxis.setAttribute("stroke-width", "2");
-                        
-                        // Arrow heads
-                        const xArrow = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                        xArrow.setAttribute("points", "180,100 175,95 175,105");
-                        xArrow.setAttribute("fill", primaryColor);
-                        
-                        const yArrow = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                        yArrow.setAttribute("points", "100,20 95,25 105,25");
-                        yArrow.setAttribute("fill", primaryColor);
-                        
-                        // Grid lines
-                        const gridLines = [];
-                        for (let i = 40; i <= 160; i += 20) {
-                            if (i !== 100) {
-                                gridLines.push({x1: i, y1: 20, x2: i, y2: 180}); // Vertical
-                                gridLines.push({x1: 20, y1: i, x2: 180, y2: i}); // Horizontal
-                            }
-                        }
-                        
-                        // Points
-                        const point1 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                        point1.setAttribute("cx", "60");
-                        point1.setAttribute("cy", "60");
-                        point1.setAttribute("r", "5");
-                        point1.setAttribute("fill", secondaryColor);
-                        
-                        const point2 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                        point2.setAttribute("cx", "140");
-                        point2.setAttribute("cy", "140");
-                        point2.setAttribute("r", "5");
-                        point2.setAttribute("fill", secondaryColor);
+                shuffledOptions.forEach(option => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'option cyber-panel rounded-lg p-4 text-center cursor-pointer';
+                    optionElement.textContent = option;
+                    
+                    optionElement.addEventListener('click', () => {
+                        checkAnswer(option, shape.name);
+                    });
+                    
+                    optionsContainer.appendChild(optionElement);
+                });
+            }
+            
+            function checkAnswer(selectedOption, correctOption) {
+                if (!gameActive) return;
+                
+                const options = document.querySelectorAll('.option');
+                options.forEach(option => {
+                    option.classList.add('pointer-events-none');
+                    
+                    if (option.textContent === correctOption) {
+                        option.classList.add('bg-green-900', 'border-green-500');
+                        option.style.boxShadow = '0 0 10px #00ff00';
+                    } else if (option.textContent === selectedOption && selectedOption !== correctOption) {
+                        option.classList.add('bg-red-900', 'border-red-500');
+                        option.style.boxShadow = '0 0 10px #ff0000';
+                    }
+                });
+                
+                if (selectedOption === correctOption) {
+                    // Correct answer
+                    score += currentLevel * 10;
+                    scoreElement.textContent = score;
+                    scoreElement.classList.add('score-pulse');
+                    setTimeout(() => {
+                        scoreElement.classList.remove('score-pulse');
+                    }, 500);
+                    correctAnswers++;
+                } else {
+                    // Wrong answer
+                    timeLeft = Math.max(timeLeft - 5, 1);
+                    timerElement.textContent = timeLeft;
+                    timerElement.classList.add('neon-pink');
+                    setTimeout(() => {
+                        timerElement.classList.remove('neon-pink');
+                        timerElement.classList.add('neon-purple');
+                    }, 1000);
+                    wrongAnswers++;
+                }
+                
+                questionsAnswered++;
+                
+                // Check if level completed
+                if (questionsAnswered >= questionsPerLevel) {
+                    levelUp();
+                } else {
+                    // Next question after delay
+                    setTimeout(() => {
+                        nextQuestion();
+                    }, 1500);
+                }
+            }
+            
+            function nextQuestion() {
+                const currentShape = getRandomShape();
+                renderShape(currentShape);
+                renderOptions(currentShape);
+            }
+            
+            function levelUp() {
+                if (currentLevel < 4) {
+                    currentLevel++;
+                    levelElement.textContent = currentLevel;
+                    questionsAnswered = 0;
+                    
+                    // Show level up modal
+                    newLevelElement.textContent = `Level ${currentLevel}`;
+                    
+                    const levelDescriptions = [
+                        "",
+                        "Bentuk dasar 2D: persegi, segitiga, lingkaran, dll.",
+                        "Bentuk 2D kompleks: trapesium, jajar genjang, dll.",
+                        "Bentuk 3D dasar: kubus, bola, silinder, dll.",
+                        "Bentuk 3D kompleks: prisma, limas, dll."
+                    ];
+                    
+                    levelDescriptionElement.textContent = levelDescriptions[currentLevel];
+                    
+                    // Pause the timer
+                    clearInterval(timer);
+                    
+                    // Show level up modal
+                    levelUpModal.classList.remove('hidden');
+                    
+                    // Add time bonus
+                    timeLeft += 15;
+                    if (timeLeft > 60) timeLeft = 60;
+                } else {
+                    // Game completed
+                    endGame();
+                }
+            }
+            
+            function startGame() {
+                gameActive = true;
+                currentLevel = 1;
+                score = 0;
+                timeLeft = 30;
+                correctAnswers = 0;
+                wrongAnswers = 0;
+                questionsAnswered = 0;
+                
+                levelElement.textContent = currentLevel;
+                scoreElement.textContent = score;
+                timerElement.textContent = timeLeft;
+                progressBar.style.width = '100%';
+                
+                startBtn.textContent = 'Mulai Ulang';
+                
+                // Start timer
+                clearInterval(timer);
+                timer = setInterval(() => {
+                    timeLeft--;
+                    timerElement.textContent = timeLeft;
+                    
+                    // Update progress bar
+                    const percentage = (timeLeft / 30) * 100;
+                    progressBar.style.width = `${percentage}%`;
+                    
+                    if (timeLeft <= 0) {
+                        endGame();
+                    }
+                }, 1000);
+                
+                nextQuestion();
+            }
+            
+            function endGame() {
+                gameActive = false;
+                clearInterval(timer);
+                
+                // Update game over modal
+                finalScoreElement.textContent = score;
+                finalLevelElement.textContent = currentLevel;
+                correctAnswersElement.textContent = correctAnswers;
+                wrongAnswersElement.textContent = wrongAnswers;
+                
+                // Show game over modal
+                gameOverModal.classList.remove('hidden');
+            }
+            
+            // Event listeners
+            startBtn.addEventListener('click', startGame);
+            
+            helpBtn.addEventListener('click', () => {
+                helpModal.classList.remove('hidden');
+            });
+            
+            closeHelpBtn.addEventListener('click', () => {
+                helpModal.classList.add('hidden');
+            });
+            
+            playAgainBtn.addEventListener('click', () => {
+                gameOverModal.classList.add('hidden');
+                startGame();
+            });
+            
+            shareScoreBtn.addEventListener('click', () => {
+                alert(`Skor saya di CyberGeometry: ${score} poin di Level ${currentLevel}! Coba kalahkan skor saya!`);
+            });
+            
+            continueGameBtn.addEventListener('click', () => {
+                levelUpModal.classList.add('hidden');
+                
+                // Resume timer
+                timer = setInterval(() => {
+                    timeLeft--;
+                    timerElement.textContent = timeLeft;
+                    
+                    // Update progress bar
+                    const percentage = (timeLeft / 30) * 100;
+                    progressBar.style.width = `${percentage}%`;
+                    
+                    if (timeLeft <= 0) {
+                        endGame();
+                    }
+                }, 1000);
+                
+                nextQuestion();
+            });
+        });
+    </script>
+</body>
+</html>
